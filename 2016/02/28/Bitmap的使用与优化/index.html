@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+  *************   *           *      ********
+	         8      *       *        *        *
+           8          *	  *          *        *
+         8		        *            ********
+       8                *            *        *
+     8			        *            *	       *
+   8			        *            *         *
+  *************         *            **********    ----- welcome to my blog
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Bitmap的使用与优化 | ZYB`s blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="ZYB`s blog">
+    <meta name="author" content="ZhangYB">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="ZYB`s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.lug.ustc.edu.cn/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.lug.ustc.edu.cn/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="" target="_BLANK" class="animsition-link">简单锁屏</a></li>
+                    
+                        <li><a href="" target="_BLANK" class="animsition-link">眼睛守护</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/android/" class="animsition-link">android<small>(7)</small></a></li>
+				    
+				    <li><a href="/categories/hexo/" class="animsition-link">hexo<small>(1)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            
+            
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Home</a></li>
+                            
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            
+                            <li><a href="/about.html" class="animsition-link">About</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-02-28T14:54:03.000Z" itemprop="datePublished">
+          2016-02-28
+      </time>
+    
+</span>
+                <h1>Bitmap的使用与优化</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>BitmapFactory解析Bitmap的静态工厂方法常用的有：</p>
+<blockquote>
+<p>decodeFile、decodeResource、decodeStream</p>
+</blockquote>
+<p>在不匹配options的情况下：<br>1、decodeFile、decodeStream在解析时不会对Bitmap进行一系列的屏幕适配，解析出来的将是原始大小的图片<br>2、decodeResource在解析时会对Bitmap根据当前设备屏幕像素密度densityDpi的值进行缩放适配，使得解析出来的Bitmap与当前的设备的分辨率匹配。</p>
+<p>匹配options的情况下：<br>设置inJustDecodeBounds属性为true可以在解码返回一个null的bitmap，但可以获取outWidth，outHeight与outMimeType</p>
+<p>1、按屏幕像素按比例调整图片大小，适当减少采样率inSampleSize<br>2、在非ui线程处理bitmap</p>
+<p>使用asyncTask   </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitmapWorkerTask</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">WeakReference</span> imageViewReference;</span><br><span class="line">    <span class="keyword">private</span> int data = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    public <span class="type">BitmapWorkerTask</span>(<span class="type">ImageView</span> imageView) &#123;</span><br><span class="line">        <span class="comment">// Use a WeakReference to ensure the ImageView can be garbage collected</span></span><br><span class="line">        imageViewReference = <span class="keyword">new</span> <span class="type">WeakReference</span>(imageView);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decode image in background.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">Bitmap</span> doInBackground(<span class="type">Integer</span>... params) &#123;</span><br><span class="line">        data = params[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> decodeSampledBitmapFromResource(getResources(), data, <span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Once complete, see if ImageView is still around and set bitmap.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void onPostExecute(<span class="type">Bitmap</span> bitmap) &#123;</span><br><span class="line">        <span class="keyword">if</span> (imageViewReference != <span class="literal">null</span> &amp;&amp; bitmap != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">ImageView</span> imageView = imageViewReference.get();</span><br><span class="line">            <span class="keyword">if</span> (imageView != <span class="literal">null</span>) &#123;</span><br><span class="line">                imageView.setImageBitmap(bitmap);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>开始异步加载位图，只需要创建一个新的任务并执行它即可:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> loadBitmap(<span class="keyword">int</span> resId, ImageView imageView) &#123;</span><br><span class="line">    BitmapWorkerTask <span class="keyword">task</span> = <span class="keyword">new</span> BitmapWorkerTask(imageView);</span><br><span class="line">    <span class="keyword">task</span>.execute(resId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、使用(LruCache)内存缓存bitmap</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">LruCache&lt;<span class="keyword">String</span>,Bitmap&gt; mMemoryCache;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> mMemoryCache()&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">final</span> <span class="built_in">int</span> maxMemory=(<span class="built_in">int</span>)(Runtime.getRuntime().maxMemory()/<span class="number">1024</span>);</span><br><span class="line">	<span class="keyword">final</span> <span class="built_in">int</span> cacheSize=maxMemory/<span class="number">8</span>;</span><br><span class="line">	</span><br><span class="line">	mMemoryCache=<span class="keyword">new</span> LruCache&lt;<span class="keyword">String</span>,Bitmap&gt;(cacheSize)&#123;</span><br><span class="line">	</span><br><span class="line">		@Override</span><br><span class="line">		<span class="keyword">protected</span> <span class="built_in">int</span> sizeOf(<span class="keyword">String</span> <span class="built_in">key</span>,Bitmap bitmap)&#123;</span><br><span class="line">			<span class="keyword">return</span> bitmap.getByteCount()/<span class="number">1024</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">add</span> BitmapToMemoryCache(<span class="keyword">String</span> <span class="built_in">key</span>,Bitmap bitmap)&#123;</span><br><span class="line">	<span class="keyword">if</span>(getBitmapFromMemCache(<span class="built_in">key</span>)==<span class="keyword">null</span>)&#123;</span><br><span class="line">		mMemoryCache.put(<span class="built_in">key</span>,bitmap);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Bitmap getBitmapFromMemCache(<span class="keyword">String</span> <span class="built_in">key</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> mMemoryCache.<span class="built_in">get</span>(<span class="built_in">key</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">public</span> void loadBitmap(int resId,ImageView imageView)&#123;</span><br><span class="line">	final <span class="keyword">String </span>imageKey= <span class="keyword">String.valueOf(resId);</span></span><br><span class="line"><span class="keyword">	</span>final <span class="keyword">Bitmap </span><span class="keyword">bitmap=getBitmapFromMemCache(imageKey);</span></span><br><span class="line"><span class="keyword">	</span><span class="meta">if</span>(<span class="keyword">bitmap!=null)&#123;</span></span><br><span class="line"><span class="keyword">	</span>	mImageView.setImageBitmap(<span class="keyword">bitmap);</span></span><br><span class="line"><span class="keyword">	</span>&#125;<span class="meta">else</span>&#123;</span><br><span class="line">		mImageView.setImageResource(R.drawable.<span class="keyword">bg);</span></span><br><span class="line"><span class="keyword">	</span>	<span class="keyword">BitmapWorkerTask </span>task<span class="symbol">=new</span> <span class="keyword">BitmapWorkerTask(mImageView);</span></span><br><span class="line"><span class="keyword">	</span>	task.execute(resId)<span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、使用磁盘缓存Bitmap<br>内存缓存能提高最近访问过的Bitmap的速度，但无法保证Bitmap都能保存在缓存中。磁盘缓存可以用来保存那些已经处理过的Bitmap，减少从网络下载的次数。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> DiskLruCache mDiskLruCache;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">Object</span> mDiskCacheLock = <span class="keyword">new</span> <span class="keyword">Object</span>();</span><br><span class="line"><span class="keyword">private</span> <span class="built_in">boolean</span> mDiskCacheStarting = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> DISK_CACHE_SIZE = <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">10</span>; <span class="comment">// 10MB</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> DISK_CACHE_SUBDIR = <span class="string">"thumbnails"</span>;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// Initialize memory cache</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// Initialize disk cache on background thread</span></span><br><span class="line">    File cacheDir = getDiskCacheDir(<span class="keyword">this</span>, DISK_CACHE_SUBDIR);</span><br><span class="line">    <span class="keyword">new</span> InitDiskCacheTask().execute(cacheDir);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class InitDiskCacheTask extends AsyncTask&lt;File, Void, Void&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">protected</span> Void doInBackground(File... params) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (mDiskCacheLock) &#123;</span><br><span class="line">            File cacheDir = params[<span class="number">0</span>];</span><br><span class="line">            mDiskLruCache = DiskLruCache.<span class="built_in">open</span>(cacheDir, DISK_CACHE_SIZE);</span><br><span class="line">            mDiskCacheStarting = <span class="keyword">false</span>; <span class="comment">// Finished initialization</span></span><br><span class="line">            mDiskCacheLock.notifyAll(); <span class="comment">// Wake any waiting threads</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BitmapWorkerTask extends AsyncTask&lt;Integer, Void, Bitmap&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// Decode image in background.</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">protected</span> Bitmap doInBackground(Integer... params) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">String</span> imageKey = <span class="keyword">String</span>.valueOf(params[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check disk cache in background thread</span></span><br><span class="line">        Bitmap bitmap = getBitmapFromDiskCache(imageKey);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (bitmap == <span class="keyword">null</span>) &#123; <span class="comment">// Not found in disk cache</span></span><br><span class="line">            <span class="comment">// Process as normal</span></span><br><span class="line">            <span class="keyword">final</span> Bitmap bitmap = decodeSampledBitmapFromResource(</span><br><span class="line">                    getResources(), params[<span class="number">0</span>], <span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add final bitmap to caches</span></span><br><span class="line">        addBitmapToCache(imageKey, bitmap);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bitmap;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> addBitmapToCache(<span class="keyword">String</span> <span class="built_in">key</span>, Bitmap bitmap) &#123;</span><br><span class="line">    <span class="comment">// Add to memory cache as before</span></span><br><span class="line">    <span class="keyword">if</span> (getBitmapFromMemCache(<span class="built_in">key</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        mMemoryCache.put(<span class="built_in">key</span>, bitmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Also add to disk cache</span></span><br><span class="line">    <span class="keyword">synchronized</span> (mDiskCacheLock) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mDiskLruCache != <span class="keyword">null</span> &amp;&amp; mDiskLruCache.<span class="built_in">get</span>(<span class="built_in">key</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mDiskLruCache.put(<span class="built_in">key</span>, bitmap);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Bitmap getBitmapFromDiskCache(<span class="keyword">String</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (mDiskCacheLock) &#123;</span><br><span class="line">        <span class="comment">// Wait while disk cache is started from background thread</span></span><br><span class="line">        <span class="keyword">while</span> (mDiskCacheStarting) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                mDiskCacheLock.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (mDiskLruCache != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> mDiskLruCache.<span class="built_in">get</span>(<span class="built_in">key</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creates a unique subdirectory of the designated app cache directory. Tries to use external</span></span><br><span class="line"><span class="comment">// but if not mounted, falls back on internal storage.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> File getDiskCacheDir(Context context, <span class="keyword">String</span> uniqueName) &#123;</span><br><span class="line">    <span class="comment">// Check if media is mounted or storage is built-in, if so, try and use external cache dir</span></span><br><span class="line">    <span class="comment">// otherwise use internal cache dir</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">String</span> cachePath =</span><br><span class="line">            Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||</span><br><span class="line">                    !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :</span><br><span class="line">                            context.getCacheDir().getPath();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> File(cachePath + File.separator + uniqueName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5、利用BitmapRegionDecoder实现显示高清大图片<br>如果不压缩按原尺寸加载原图，屏幕肯定不够大，并且考虑到内存的情况，不可能一次性整图加载到内存，所以使用BitmapRegionDecoder来实现局部加载。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">BitmapRegionDecoder bitmapRegionDecoder</span>=BitmapRegionDecoder.newInstance(inputStream,false);  </span><br><span class="line"><span class="attribute">bitmapRegionDecoder</span>=BitmapRegionDecoder.decodeRegion(rect,options);</span><br></pre></td></tr></table></figure>
+
+<p>rect指定大图片要显示的区域，options设置图片参数</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/03/01/android常见的内存泄露/" style="float: left;">
+        ← android常见的内存泄露
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/02/11/android内存管理机制/">
+        android内存管理机制 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+    <div id="gitment-ctn"></div> 
+    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+    <script src="https://billts.site/js/gitment.js"></script>
+    <script>
+    var gitment = new Gitment({
+      id: "http://yoursite.com/2016/02/28/Bitmap的使用与优化/index.html",
+      owner: '#',
+      repo: '#',
+      oauth: {
+        client_id: '#',
+        client_secret: '#',
+      },
+    })
+    gitment.render('gitment-ctn')
+    </script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By ZhangYB. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+
+<div id="totop" style="position : fixed; bottom : 100px; right : 30px; width: 25px; cursor : pointer; opacity: 1; z-index: 1060;">
+<a title="返回顶部"><img src="/img/scrollTop.png" style="width: 25px;"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+</body>
+</html>
